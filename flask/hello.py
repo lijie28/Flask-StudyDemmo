@@ -35,16 +35,18 @@ def new_user():
     # print request
     # if len(task) == 0:
     #     abort(404)
-    if not request.json:
+    # return jsonify(request.json)
+        
+    if not request.form:
         abort(400)
-    if 'username' in request.json and type(request.json['username']) != unicode:
+    if 'username' in request.form and type(request.form['username']) != unicode:
         abort(400)
-    username = request.json.get('username')
-    password = request.json.get('password')
-    # if username is None or password is None:
-    #     abort(400) # missing arguments
-    # if User.query.filter_by(username = username).first() is not None:
-    #     abort(400) # existing user
+    username = request.values.get('username')
+    password = request.values.get('password')
+    if username is None or password is None:
+        abort(400) # missing arguments
+    if User.query.filter_by(username = username).first() is not None:
+        abort(400) # existing user
     user = User(username = username)
     user.hash_password(password)
     db.session.add(user)
