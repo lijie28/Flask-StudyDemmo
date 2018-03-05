@@ -13,9 +13,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/test.db'
 db = SQLAlchemy(app)
 
-if __name__ == '__main__':
-    app.run(debug = True)
-
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -33,10 +30,6 @@ class User(db.Model):
 
 @app.route('/api/users', methods = ['POST'])
 def new_user():
-    # print request
-    # if len(task) == 0:
-    #     abort(404)
-    # return jsonify(request.json)
         
     if not request.form:
         abort(400)
@@ -131,11 +124,13 @@ def hello():
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():
+    print 'test'
     error = None
     if request.method == 'POST':
-        if valid_login(request.form['username'],
-                       request.form['password']):
-            return log_the_user_in(request.form['username'])
+        print 'haha'
+        if valid_login(request.form['user'],
+                       request.form['pwd']):
+            return log_the_user_in(request.form['user'])
         else:
             error = 'Invalid username/password'
     # the code below is executed if the request method
@@ -152,5 +147,5 @@ def upload_file():
 
 
 
-
-        
+if __name__ == '__main__':
+    app.run(debug = True)
