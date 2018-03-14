@@ -1,11 +1,14 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <div class = "dotable">
+      <!-- <router-link to="/api/upload" class="btn-ui">天气喔</router-link> -->
+    </div> 
     <router-view/>
   </div>
 </template>
 
 <script>
+
 export default {
   name: 'App'
 }
